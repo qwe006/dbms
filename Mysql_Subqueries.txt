@@ -1,0 +1,171 @@
+Microsoft Windows [Version 10.0.19045.4651]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\CNLAB05>mysql --version
+mysql  Ver 8.0.36 for Win64 on x86_64 (MySQL Community Server - GPL)
+
+C:\Users\CNLAB05>mysql -u root -p
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.36 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| emp                |
+| employee           |
+| information_schema |
+| mysql              |
+| performance_schema |
+| stud99             |
+| student            |
+| student12          |
+| te_13201           |
+| te_a2_13140        |
+| te_a3_13155        |
+| te_a_15            |
+| te_b1_13207        |
++--------------------+
+13 rows in set (0.01 sec)
+
+mysql> use stud99;
+Database changed
+mysql> create table stud999( E_Id int(20),E_Name varchar(20),Address varchar(20),E_Post varchar(20),E_Salary int(20));
+Query OK, 0 rows affected, 2 warnings (0.02 sec)
+
+mysql> desc stud999;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| E_Id     | int         | YES  |     | NULL    |       |
+| E_Name   | varchar(20) | YES  |     | NULL    |       |
+| Address  | varchar(20) | YES  |     | NULL    |       |
+| E_Post   | varchar(20) | YES  |     | NULL    |       |
+| E_Salary | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+mysql> insert into stud999 values(1, 'Amit', 'Mumbai', 'Manager', 800000),(2, 'Priya', 'Delhi', 'Developer', 900000),
+       (3, 'Rahul', 'Bangalore', 'Marketing', 650000),(4, 'Anjali', 'Hyderabad', 'Manager', 750000),(5, 'Ravi', 'Chennai', 
+       'Engineer', 700000),(6, 'Neha', 'Kolkata', 'Analyst', 600000),(7, 'Rajesh', 'Pune', 'Representative', 550000),(8, 
+       'Shalini', 'Jaipur', 'Coordinator', 500000),(9, 'Vivek', 'Ahmedabad', 'Manager', 850000),(10, 'Pooja', 'Surat', 
+       'Designer', 550000),(11, 'Sandeep', 'Coimbatore', 'Analyst', 700000),(12, 'Meera', 'Visakhapatnam', 'Specialist',
+       600000),(13, 'Arun', 'Lucknow', 'Administrator', 750000),(14, 'Nisha', 'Indore', 'Accountant', 600000),(15, 'Kunal',
+       'Nagpur', 'Manager', 700000),(16, 'Ananya', 'Chandigarh', 'Manager', 850000),(17, 'Sachin', 'Gurgaon', 'Consultant',
+       950000),(18, 'Sunita', 'Noida', 'Assistant', 550000),(19, 'Prakash', 'Kochi', 'Developer', 700000),(20, 'Deepa', 
+       'Patna', 'Writer', 500000);
+Query OK, 20 rows affected (0.00 sec)
+Records: 20  Duplicates: 0  Warnings: 0
+
+mysql> select * from stud999;
++------+---------+---------------+----------------+----------+
+| E_Id | E_Name  | Address       | E_Post         | E_Salary |
++------+---------+---------------+----------------+----------+
+|    1 | Amit    | Mumbai        | Manager        |   800000 |
+|    2 | Priya   | Delhi         | Developer      |   900000 |
+|    3 | Rahul   | Bangalore     | Marketing      |   650000 |
+|    4 | Anjali  | Hyderabad     | Manager        |   750000 |
+|    5 | Ravi    | Chennai       | Engineer       |   700000 |
+|    6 | Neha    | Kolkata       | Analyst        |   600000 |
+|    7 | Rajesh  | Pune          | Representative |   550000 |
+|    8 | Shalini | Jaipur        | Coordinator    |   500000 |
+|    9 | Vivek   | Ahmedabad     | Manager        |   850000 |
+|   10 | Pooja   | Surat         | Designer       |   550000 |
+|   11 | Sandeep | Coimbatore    | Analyst        |   700000 |
+|   12 | Meera   | Visakhapatnam | Specialist     |   600000 |
+|   13 | Arun    | Lucknow       | Administrator  |   750000 |
+|   14 | Nisha   | Indore        | Accountant     |   600000 |
+|   15 | Kunal   | Nagpur        | Manager        |   700000 |
+|   16 | Ananya  | Chandigarh    | Manager        |   850000 |
+|   17 | Sachin  | Gurgaon       | Consultant     |   950000 |
+|   18 | Sunita  | Noida         | Assistant      |   550000 |
+|   19 | Prakash | Kochi         | Developer      |   700000 |
+|   20 | Deepa   | Patna         | Writer         |   500000 |
++------+---------+---------------+----------------+----------+
+20 rows in set (0.00 sec)
+
+mysql> select * from stud999 where E_Salary > (select E_Salary from stud999 where E_Name ='Amit');
++------+--------+------------+------------+----------+
+| E_Id | E_Name | Address    | E_Post     | E_Salary |
++------+--------+------------+------------+----------+
+|    2 | Priya  | Delhi      | Developer  |   900000 |
+|    9 | Vivek  | Ahmedabad  | Manager    |   850000 |
+|   16 | Ananya | Chandigarh | Manager    |   850000 |
+|   17 | Sachin | Gurgaon    | Consultant |   950000 |
++------+--------+------------+------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from stud999 where E_Salary > all (select E_Salary from stud999 where E_Name ='Amit');
++------+--------+------------+------------+----------+
+| E_Id | E_Name | Address    | E_Post     | E_Salary |
++------+--------+------------+------------+----------+
+|    2 | Priya  | Delhi      | Developer  |   900000 |
+|    9 | Vivek  | Ahmedabad  | Manager    |   850000 |
+|   16 | Ananya | Chandigarh | Manager    |   850000 |
+|   17 | Sachin | Gurgaon    | Consultant |   950000 |
++------+--------+------------+------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> select * from stud999 where E_Salary < all (select E_Salary from stud999 where E_Name ='Amit');
++------+---------+---------------+----------------+----------+
+| E_Id | E_Name  | Address       | E_Post         | E_Salary |
++------+---------+---------------+----------------+----------+
+|    3 | Rahul   | Bangalore     | Marketing      |   650000 |
+|    4 | Anjali  | Hyderabad     | Manager        |   750000 |
+|    5 | Ravi    | Chennai       | Engineer       |   700000 |
+|    6 | Neha    | Kolkata       | Analyst        |   600000 |
+|    7 | Rajesh  | Pune          | Representative |   550000 |
+|    8 | Shalini | Jaipur        | Coordinator    |   500000 |
+|   10 | Pooja   | Surat         | Designer       |   550000 |
+|   11 | Sandeep | Coimbatore    | Analyst        |   700000 |
+|   12 | Meera   | Visakhapatnam | Specialist     |   600000 |
+|   13 | Arun    | Lucknow       | Administrator  |   750000 |
+|   14 | Nisha   | Indore        | Accountant     |   600000 |
+|   15 | Kunal   | Nagpur        | Manager        |   700000 |
+|   18 | Sunita  | Noida         | Assistant      |   550000 |
+|   19 | Prakash | Kochi         | Developer      |   700000 |
+|   20 | Deepa   | Patna         | Writer         |   500000 |
++------+---------+---------------+----------------+----------+
+15 rows in set (0.00 sec)
+
+mysql> select * from stud999 where E_Salary < any (select E_Salary from stud999 where E_Name ='Amit');
++------+---------+---------------+----------------+----------+
+| E_Id | E_Name  | Address       | E_Post         | E_Salary |
++------+---------+---------------+----------------+----------+
+|    3 | Rahul   | Bangalore     | Marketing      |   650000 |
+|    4 | Anjali  | Hyderabad     | Manager        |   750000 |
+|    5 | Ravi    | Chennai       | Engineer       |   700000 |
+|    6 | Neha    | Kolkata       | Analyst        |   600000 |
+|    7 | Rajesh  | Pune          | Representative |   550000 |
+|    8 | Shalini | Jaipur        | Coordinator    |   500000 |
+|   10 | Pooja   | Surat         | Designer       |   550000 |
+|   11 | Sandeep | Coimbatore    | Analyst        |   700000 |
+|   12 | Meera   | Visakhapatnam | Specialist     |   600000 |
+|   13 | Arun    | Lucknow       | Administrator  |   750000 |
+|   14 | Nisha   | Indore        | Accountant     |   600000 |
+|   15 | Kunal   | Nagpur        | Manager        |   700000 |
+|   18 | Sunita  | Noida         | Assistant      |   550000 |
+|   19 | Prakash | Kochi         | Developer      |   700000 |
+|   20 | Deepa   | Patna         | Writer         |   500000 |
++------+---------+---------------+----------------+----------+
+15 rows in set (0.00 sec)
+
+mysql> select * from stud999 where E_Salary > any (select E_Salary from stud999 where E_Name ='Amit');
++------+--------+------------+------------+----------+
+| E_Id | E_Name | Address    | E_Post     | E_Salary |
++------+--------+------------+------------+----------+
+|    2 | Priya  | Delhi      | Developer  |   900000 |
+|    9 | Vivek  | Ahmedabad  | Manager    |   850000 |
+|   16 | Ananya | Chandigarh | Manager    |   850000 |
+|   17 | Sachin | Gurgaon    | Consultant |   950000 |
++------+--------+------------+------------+----------+
+4 rows in set (0.00 sec)
